@@ -6,10 +6,8 @@ from json_functions import json_functions
 
 class youtube_search:
 
-    def __init__(self) -> None:
-        self.video_comparison()
+    def __init__(self) -> None:    
         pass
-
 
     def json_video_info(self):
 
@@ -34,11 +32,18 @@ class youtube_search:
 
         old_video_data = self.json_video_info()
         new_video_data = self.new_video_info()
+        # print("old url", old_video_data['video_url'], "new url", new_video_data['video_url'])
+        # print("old id", old_video_data['video_id'], "new id", new_video_data['video_id'])
+
         if old_video_data['video_url'] != new_video_data['video_url'] and old_video_data['video_id'] != new_video_data['video_id']:
+
             json_functions.save_json("last_video_informations",new_video_data)
             print(new_video_data)
-            print("lala")
-        return new_video_data
+            send_data = new_video_data
+        else:
+            send_data = {"video_url":"brak"}
+        # print("return send data",send_data)
+        return send_data
 
 
 

@@ -1,3 +1,4 @@
+from types import NoneType
 from discord.ext import tasks
 from yt_search import youtube_search
 
@@ -28,11 +29,16 @@ class MyClient(discord.Client):
         # url = "aaa"
         # await channel.send(url)
         channel = self.get_channel(960256204775489618)  # channel ID goes here
-        self.counter += 1
-        data =  youtube_search().video_comparison()
-        url = data['video_url']
-        # url = "aaa"
-        await channel.send(url)
+        self.data =  youtube_search().video_comparison()
+        print("main - data", self.data)
+        if self.data['video_url'] == "brak":
+            print("main - brak filmu")
+            self.url = 'brak filmu'
+        else:
+            print("main - url filmu")
+            self.url = self.data['video_url']
+            await channel.send(self.url)
+        
 
     @my_background_task.before_loop
     async def before_my_task(self):
@@ -40,4 +46,4 @@ class MyClient(discord.Client):
 
 
 client = MyClient(intents=discord.Intents.default())
-client.run('x')
+client.run('')
